@@ -101,6 +101,9 @@ servicios.push(new Servicio('Semi', '2', '1500'))
 servicios.push(new Servicio('Service', '3', '2500'))
 servicios.push(new Servicio('Esculpido', '4', '3500'))
 
+function capitalize(nombre) {
+    return nombre[0].toUpperCase() + nombre.slice(1);
+}
 
 let menu = function () {
 
@@ -136,28 +139,25 @@ ${listaServicios}`))
                     let disponible = ''
 
                     for (let i = 8; i < 20; i++) {
-
-
                         if (turnos.length) {
                             for (let j = 0; j < turnos.length; j++) {
+                                console.log(`i ${i}`)
+                                console.log(`j ${j}`)
                                 if (i === turnos[j].horario) {
                                     i = i + servicios[turnos[j].servicio].duracion
-                                } else {
-                                    disponible += `${i}hs sfdf
-`
                                 }
+                                console.log(`turnos[j] ${turnos[j].horario}`)
                             }
-                        } else {
-                            disponible += `${i}hs hola
-`
                         }
+                        disponible += `${i}hs
+`
                     }
                     turno.horario = Number(prompt(`Elija uno de los HORARIOS disponibles:
 ${disponible}`))
 
                     nombreCliente = prompt(`Ingrese el nombre del cliente`)
 
-                    while (nombreCliente == null || nombreCliente == "" || !isNaN(nombreCliente)) {
+                    while (nombreCliente === null || nombreCliente === "" || !isNaN(nombreCliente)) {
                         alert(`El NOMBRE ingresado NO es válido!`)
                         nombreCliente = prompt(`Ingrese el NOMBRE del cliente nuevamente`)
                     }
@@ -182,12 +182,12 @@ ${disponible}`))
                     } else {
                         let listaTurnos = '';
                         for (let i = 0; i < turnos.length; i++) {
-                            listaTurnos += `(${i}) HORARIO: ${turnos[i].horario}hs - NOMBRE: ${turnos[i].nombreCliente} - SERVICIO: ${servicios[turnos[i].servicio].nombreServicio} 
-                    `;
+                            listaTurnos += `(${i}) HORARIO: de ${turnos[i].horario}hs a ${turnos[i].horario + servicios[turnos[i].servicio].duracion}hs - NOMBRE: ${turnos[i].nombreCliente} - SERVICIO: ${servicios[turnos[i].servicio].nombreServicio} 
+`;
                         }
                         alert(`Lista de TURNOS:
                 
- ${listaTurnos}`)
+${listaTurnos}`)
                     }
                     menu();
                     break;
@@ -198,31 +198,73 @@ ${disponible}`))
                     break;
 
                 default:
+                    alert(`Ingrese un número válido!`)
                     menu();
                     break;
             }
 
         case 2:
             opcion = Number(prompt(`Elija una opción
-            (1) NUEVO PROFESIONAL
-            (2) VER LISTA DE PROFESIONALES
-            (3) VOLVER AL MENU PRINCIPAL`))
+(1) NUEVO PROFESIONAL
+(2) VER LISTA DE PROFESIONALES
+(3) VOLVER AL MENU PRINCIPAL`))
 
             switch (opcion) {
                 case 1:
+                    let profesional = new Profesional;
+
+                    let listaServicios = '';
+                    for (let i = 0; i < servicios.length; i++) {
+                        listaServicios += `(${i}) ${servicios[i].nombreServicio}
+`;
+                    }
+
+                    profesional.servicio = Number(prompt(`Ingrese que serivicio realiza:
+                    
+${listaServicios}`))
+
+                    profesional.nombreProfesional = capitalize((prompt(`Ingrese el nombre del PROFESIONAL:`)))
+
+                    while (profesional.nombreProfesional === null || profesional.nombreProfesional === "" || !isNaN(profesional.nombreProfesional)) {
+                        alert(`El NOMBRE ingresado NO es válido!`)
+                        nombreCliente = prompt(`Ingrese el NOMBRE del cliente nuevamente`)
+                    }
+
+                    alert(`La Profesional ${profesional.nombreProfesional} fue añadida correctamente`)
+
+                    menu();
 
                 case 2:
 
+                    if (profesionales.length === 0) {
+                        alert(`Aún no hay PROFESIONALES añadidos a tu lista!`)
+                    } else {
+                        let listaProfesionales = '';
+                        for (let i = 0; i < profesionales.length; i++) {
+                            listaProfesionales += `NOMBRE: ${profesionales[i].nombreProfesional} - SERVICIO: ${servicios[profesionales[i].servicio].nombreServicio} 
+`;
+                        }
+                        alert(`Lista de profesionales:
+                
+${listaProfesionales}`)
+                    }
+
+
                 case 3:
+                    menu();
+                    break;
+
+                default:
+                    alert(`Ingrese un número válido!`)
                     menu();
                     break;
             }
 
         case 3:
             opcion = Number(prompt(`Elija una opción
-            (1) NUEVO SERVICIO
-            (2) VER LISTA DE SERVICIOS
-            (3) VOLVER AL MENU PRINCIPAL`))
+(1) NUEVO SERVICIO
+(2) VER LISTA DE SERVICIOS
+(3) VOLVER AL MENU PRINCIPAL`))
 
             switch (opcion) {
                 case 1:
@@ -240,6 +282,8 @@ ${disponible}`))
                     menu();
                     break;
                 case 2:
+                    menu();
+
 
                 case 3:
                     menu();
@@ -247,9 +291,13 @@ ${disponible}`))
 
                 default:
                     alert(`Ingrese un número válido!`)
+                    menu();
                     break;
             }
-
+        default:
+            alert(`Ingrese un número válido!`)
+            menu();
+            break;
     }
 }
 
