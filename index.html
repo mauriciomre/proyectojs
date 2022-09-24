@@ -6,13 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sala de Manicuría</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <!-- <link rel="stylesheet" href="./css/style.css"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
     <div class="container">
         <h1 class="text-center mb-4">AGENDA DE TURNOS</h1>
-        <form class="container-fluid mb-4">
+        <form class="mb-4">
             <div class="row mb-3">
                 <div class="col">
                     <input id="nombreCliente" type="text" class="form-control" placeholder="Nombre" aria-label="Nombre">
@@ -24,18 +29,12 @@
             </div>
 
             <select id="servicio" class="form-select mb-3" aria-label="Default select example">
-                <option selected>Servicio</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+
             </select>
             <select id="horario" class="form-select mb-3" aria-label="Default select example">
-                <option selected>Horario</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+
             </select>
-            <button id="agregar" type="button" class="btn btn-success">Agregar</button>
+            <button id="agregarTurno" type="button" class="btn btn-success">Agregar</button>
         </form>
 
         <table id="tablaTurnos" class="table">
@@ -46,17 +45,13 @@
                     <th scope="col">Servicio</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Apellido</th>
+                    <th scope="col"></th>
+
 
                 </tr>
             </thead>
             <tbody id="tbodyTurnos">
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Horario</td>
-                    <td>Servicio</td>
-                    <td>Nombre</td>
-                    <td>Apellido</td>
-                </tr>
+
             </tbody>
         </table>
 

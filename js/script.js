@@ -72,6 +72,9 @@ function agregarTurno() {
 
     if (turnos.length) {
         for (let i = 0; i < turnos.length; i++) {
+            if (!turnos[i].id) {
+                turnos[i].id = i;
+            }
             tbodyTurnos.innerHTML += `<tr><th scope="row">${i}</th><td>${
                 turnos[i].horario
             }:00hs a ${
@@ -79,17 +82,38 @@ function agregarTurno() {
             }:00hs</td><td>${servicios[turnos[i].servicio].nombreServicio}</td>
             <td>${turnos[i].nombreCliente}</td><td>${
                 turnos[i].apellidoCliente
-            }</td></tr>`;
+            }</td><td>
+            <i id="borrarTurno${i}" class="click fa-solid fa-trash btn text-danger"></i>
+        </td></tr>`;
         }
     }
     verListaServicios();
     verListaHorarios();
     console.log(turnos);
+
+    document.querySelectorAll(".click").forEach((el) => {
+        el.addEventListener("click", (e) => {
+            const id = e.target.getAttribute("id");
+            console.log("Se ha clickeado el id " + id);
+
+            element = e.target.parentElement;
+
+            element.parentElement.remove();
+
+            console.log(id.substring(11));
+
+            let numeroID = id.substring(11);
+
+            delete turnos[numeroID];
+
+            // FALTA BORRAR TURNO DE ARRAY
+        });
+    });
 }
 
-let boton = document.querySelector("#agregar");
+let btnAgregarTurno = document.querySelector("#agregarTurno");
 
-boton.addEventListener("click", agregarTurno);
+btnAgregarTurno.addEventListener("click", agregarTurno);
 
 verListaServicios();
 verListaHorarios();
