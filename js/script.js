@@ -35,32 +35,39 @@ function verListaServicios() {
     }
 }
 
-function verHorariosDisponibles(servicioElegido) {
-    let horarioDisponible;
-    let habilitar = document.querySelector("#horario");
-    if (servicioElegido !== undefined) {
-        habilitar.removeAttribute("disabled");
-
-        horarioDisponible = document.querySelector("#horario");
-
-        horarioDisponible.innerHTML = "";
-
+function verHorariosDisponibles() {
+    console.log("estoy aca");
+    console.log(selectServicio.value);
+    selectHorario.innerHTML = `<option value="" disabled selected>Horario</option>`;
+    let horariosDisponibles = [];
+    let estaDisponible = true;
+    if (selectServicio.value == "") {
+        selectHorario.setAttribute("disabled", "disabled");
+        btnAgregarTurno.setAttribute("disabled", "disabled");
+    }
+    if (selectServicio.value !== "") {
+        selectHorario.removeAttribute("disabled");
         for (let i = 8; i <= 18; i++) {
+            estaDisponible = true;
             if (turnos.length) {
                 for (let j = 0; j < turnos.length; j++) {
-                    if (turnos[j] !== undefined && i === turnos[j].horario) {
-                        i = i + servicios[turnos[j].servicio].duracion;
+                    if (turnos[j] !== undefined) {
+                        let duracionServicioSeleccionado = servicios[Number(selectServicio.value)].duracion;
+
+                        let duracionTurnoAgendado = servicios[turnos[j].servicio].duracion;
+                        let horarioTurnosAgendado = turnos[j].horario;
+                        let finTurnoAgendado = horarioTurnosAgendado + duracionTurnoAgendado;
+                        if (i < finTurnoAgendado && i + duracionServicioSeleccionado > horarioTurnosAgendado) {
+                            estaDisponible = false;
+                        }
                     }
                 }
             }
 
-            if (i < 18) {
-                horarioDisponible.innerHTML += `<option value="${i}">${i}:00hs</option>`;
-                i = i + servicios[servicioElegido].duracion;
+            if (estaDisponible == true) {
+                selectHorario.innerHTML += `<option value="${i}">${i}:00hs</option>`;
             }
         }
-    } else if (servicioElegido == undefined) {
-        habilitar.setAttribute("disabled", "disabled");
     }
 }
 
@@ -101,10 +108,11 @@ function eliminarTurno() {
             let numeroID = id.substring(11);
 
             delete turnos[numeroID];
+
+            selectServicio.value = "";
+            verHorariosDisponibles();
         });
     });
-
-    verHorariosDisponibles();
 }
 
 function agregarTurno() {
@@ -133,13 +141,19 @@ let btnAgregarTurno = document.querySelector("#agregarTurno");
 
 btnAgregarTurno.addEventListener("click", agregarTurno);
 
-let servicioSeleccionado = document.querySelector("#servicio");
+let selectServicio = document.querySelector("#servicio");
+let selectHorario = document.querySelector("#horario");
 
-// prettier-ignore
-servicioSeleccionado.addEventListener("change", () => verHorariosDisponibles(servicioSeleccionado.value));
+selectServicio.addEventListener("change", () => verHorariosDisponibles());
+selectHorario.addEventListener("change", () => {
+    if (selectHorario.value !== "") {
+        btnAgregarTurno.removeAttribute("disabled");
+    }
+});
 
 verListaServicios();
 mostrarTurnos();
 verHorariosDisponibles();
 
-//anular boton de agregar cuando no haya mas turnos disponibles o cuando no se completen los datos
+// mejorar logica de mostrar turnos superpuestos, crear array con todos los turnos posibles y
+// compararlos con los turnos agendados
