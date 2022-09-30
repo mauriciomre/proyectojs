@@ -18,8 +18,9 @@ class Servicio {
     }
 }
 
-const turnos = [];
-const servicios = [];
+let turnosArray = [];
+let turnos = [];
+let servicios = [];
 
 servicios.push(new Servicio(0, "Semi", "2", "1500"));
 servicios.push(new Servicio(1, "Service", "3", "2500"));
@@ -31,13 +32,11 @@ function verListaServicios() {
     servicioDisponible.innerHTML = `<option value="" disabled selected>Servicio</option>`;
 
     for (let i = 0; i < servicios.length; i++) {
-        servicioDisponible.innerHTML += `<option value="${i}">${servicios[i].nombreServicio}</option>`;
+        servicioDisponible.innerHTML += `<option value="${i}">${servicios[i].nombreServicio} (duración: ${servicios[i].duracion}hs)</option>`;
     }
 }
 
 function verHorariosDisponibles() {
-    console.log("estoy aca");
-    console.log(selectServicio.value);
     selectHorario.innerHTML = `<option value="" disabled selected>Horario</option>`;
     let horariosDisponibles = [];
     let estaDisponible = true;
@@ -51,7 +50,7 @@ function verHorariosDisponibles() {
             estaDisponible = true;
             if (turnos.length) {
                 for (let j = 0; j < turnos.length; j++) {
-                    if (turnos[j] !== undefined) {
+                    if (turnos[j] !== undefined && turnos[j] !== null) {
                         let duracionServicioSeleccionado = servicios[Number(selectServicio.value)].duracion;
 
                         let duracionTurnoAgendado = servicios[turnos[j].servicio].duracion;
@@ -71,10 +70,18 @@ function verHorariosDisponibles() {
     }
 }
 
+function obtenerTurnos() {
+    if (JSON.parse(localStorage.getItem("misTurnos"))) {
+        turnos = JSON.parse(localStorage.getItem("misTurnos"));
+    }
+}
+
 function mostrarTurnos() {
+    console.log(turnos);
+
     if (turnos.length) {
         for (let i = 0; i < turnos.length; i++) {
-            if (turnos[i] !== undefined) {
+            if (turnos[i] !== undefined && turnos[i] !== null) {
                 if (turnos[i].id == undefined) {
                     turnos[i].id = i;
                 }
@@ -94,6 +101,7 @@ function mostrarTurnos() {
             }
         }
     }
+    eliminarTurno();
 }
 
 function eliminarTurno() {
@@ -111,8 +119,14 @@ function eliminarTurno() {
 
             selectServicio.value = "";
             verHorariosDisponibles();
+            guardarTurnosLS();
         });
     });
+}
+
+function guardarTurnosLS() {
+    const turnosStr = JSON.stringify(turnos);
+    localStorage.setItem("misTurnos", turnosStr);
 }
 
 function agregarTurno() {
@@ -132,28 +146,23 @@ function agregarTurno() {
     turnos.push(turno);
 
     mostrarTurnos();
-    eliminarTurno();
     verListaServicios();
     verHorariosDisponibles();
+    guardarTurnosLS();
 }
 
 let btnAgregarTurno = document.querySelector("#agregarTurno");
-
-btnAgregarTurno.addEventListener("click", agregarTurno);
-
 let selectServicio = document.querySelector("#servicio");
 let selectHorario = document.querySelector("#horario");
 
+btnAgregarTurno.addEventListener("click", agregarTurno);
 selectServicio.addEventListener("change", () => verHorariosDisponibles());
 selectHorario.addEventListener("change", () => {
     if (selectHorario.value !== "") {
         btnAgregarTurno.removeAttribute("disabled");
     }
 });
-
 verListaServicios();
+obtenerTurnos();
 mostrarTurnos();
 verHorariosDisponibles();
-
-// mejorar logica de mostrar turnos superpuestos, crear array con todos los turnos posibles y
-// compararlos con los turnos agendados
