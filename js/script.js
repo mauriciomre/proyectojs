@@ -38,7 +38,6 @@ function verListaServicios() {
 
 function verHorariosDisponibles() {
     selectHorario.innerHTML = `<option value="" disabled selected>Horario</option>`;
-    let horariosDisponibles = [];
     let estaDisponible = true;
     if (selectServicio.value == "") {
         selectHorario.setAttribute("disabled", "disabled");
@@ -77,7 +76,11 @@ function obtenerTurnos() {
 }
 
 function mostrarTurnos() {
-    console.log(turnos);
+    turnos.sort(function (a, b) {
+        a = a || 0;
+        b = b || 0;
+        return a.horario - b.horario;
+    });
 
     if (turnos.length) {
         for (let i = 0; i < turnos.length; i++) {
@@ -115,7 +118,9 @@ function eliminarTurno() {
 
             let numeroID = id.substring(11);
 
-            delete turnos[numeroID];
+            turnos.splice(numeroID, 1);
+
+            console.log(turnos);
 
             selectServicio.value = "";
             verHorariosDisponibles();
@@ -166,3 +171,15 @@ verListaServicios();
 obtenerTurnos();
 mostrarTurnos();
 verHorariosDisponibles();
+
+// Usar libreria Toastify JS para notificar nuevo turno agregado y turno eliminado
+
+// Incluir calendario (usar libreria LUXON) para elegir el dia del turno
+
+// Seccion de agregar, modificar y borrar Servicios
+
+// Validar Nombre y Apellido
+
+// Avisar si no hay horarios disponibles de todos los servicios o de alguno en particular
+
+// Usar Bootswatch para darle mejor estilo
