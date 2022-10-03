@@ -1,3 +1,8 @@
 body {
     background-image: linear-gradient(90deg, #b48eb9, #9b598cee);
 }
+
+.main {
+    max-width: 50rem;
+    min-height: 45rem;
+}
