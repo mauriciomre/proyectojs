@@ -120,7 +120,7 @@ function eliminarTurno() {
 
             turnos.splice(numeroID, 1);
 
-            console.log(turnos);
+            msjEliminarTurno();
 
             selectServicio.value = "";
             verHorariosDisponibles();
@@ -150,10 +150,38 @@ function agregarTurno() {
 
     turnos.push(turno);
 
+    msjAgregarTurno();
+
     mostrarTurnos();
     verListaServicios();
     verHorariosDisponibles();
     guardarTurnosLS();
+}
+
+function msjAgregarTurno() {
+    Toastify({
+        text: "Turno agendado!",
+        className: "info",
+        duration: 1000,
+        position: "right",
+        gravity: "bottom",
+        style: {
+            background: "linear-gradient(to right, #00b09b, #96c93d)",
+        },
+    }).showToast();
+}
+
+function msjEliminarTurno() {
+    Toastify({
+        text: "Turno eliminado!",
+        className: "info",
+        duration: 1000,
+        position: "right",
+        gravity: "bottom",
+        style: {
+            background: "linear-gradient(to right, #db3a6e, #de3075)",
+        },
+    }).showToast();
 }
 
 let btnAgregarTurno = document.querySelector("#agregarTurno");
@@ -172,7 +200,7 @@ obtenerTurnos();
 mostrarTurnos();
 verHorariosDisponibles();
 
-// Usar libreria Toastify JS para notificar nuevo turno agregado y turno eliminado
+// TAREAS PENDIENTES
 
 // Incluir calendario (usar libreria LUXON) para elegir el dia del turno
 
