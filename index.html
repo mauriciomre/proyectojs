@@ -11,63 +11,71 @@
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous"> -->
 
     <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
         integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body class="body">
 
-    <div class="main card bg-secondary mb-3 mt-3 mx-auto">
+    <div class="container">
 
-        <div class="card-header h4 text-light">
-            AGENDA DE TURNOS
-        </div>
 
-        <div class="card-body">
+        <div class="main card bg-secondary mb-3 mt-3 mx-auto">
 
-            <form class="card-title">
-                <div class="row mb-3">
-                    <div class="col">
-                        <input id="nombreCliente" type="text" class="form-control" placeholder="Nombre"
-                            aria-label="Nombre">
+            <div class="card-header h4 text-light d-flex justify-content-between">
+
+                <span class="align-self-center">AGENDA DE TURNOS</span>
+                <i class="btn btn-lg fa-solid fa-gear"></i>
+            </div>
+            <div class="card-header" id="calendar"></div>
+
+            <div class="card-body">
+
+                <form class="card-title">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <input id="nombreCliente" type="text" class="form-control" placeholder="Nombre"
+                                aria-label="Nombre">
+                        </div>
+                        <div class="col">
+                            <input id="apellidoCliente" type="text" class="form-control" placeholder="Apellido"
+                                aria-label="Apellido">
+                        </div>
                     </div>
-                    <div class="col">
-                        <input id="apellidoCliente" type="text" class="form-control" placeholder="Apellido"
-                            aria-label="Apellido">
-                    </div>
-                </div>
 
 
 
-                <select id="servicio" class="form-select mb-3" aria-label="Default select example">
+                    <select id="servicio" class="form-select mb-3" aria-label="Default select example">
 
-                </select>
-                <select id="horario" class="form-select mb-3" aria-label="Default select example" disabled>
+                    </select>
+                    <select id="horario" class="form-select mb-3" aria-label="Default select example" disabled>
 
-                </select>
-                <button id="agregarTurno" type="button" class="btn btn-primary mb-2">Agregar</button>
-            </form>
+                    </select>
+                    <button id="agregarTurno" type="button" class="btn btn-primary mb-2">Agregar</button>
+                </form>
 
-            <table id="tablaTurnos" class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Horario</th>
-                        <th scope="col">Servicio</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Apellido</th>
-                        <th scope="col"></th>
+                <table id="tablaTurnos" class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Horario</th>
+                            <th scope="col">Servicio</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellido</th>
+                            <th scope="col"></th>
 
 
-                    </tr>
-                </thead>
-                <tbody id="tbodyTurnos">
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyTurnos">
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     <!-- JavaScript Bundle with Popper -->
@@ -75,6 +83,8 @@
         integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
         crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/3.0.4/luxon.min.js"></script>
     <script src="./js/script.js"></script>
 </body>
 

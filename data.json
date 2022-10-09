@@ -1,0 +1,23 @@
+[
+    {
+        "id": 0,
+        "nombreServicio": "Semi",
+        "duracion": 2,
+        "costo": 1500,
+        "descripcion": null
+    },
+    {
+        "id": 1,
+        "nombreServicio": "Service",
+        "duracion": 3,
+        "costo": 2500,
+        "descripcion": null
+    },
+    {
+        "id": 2,
+        "nombreServicio": "Esculpido",
+        "duracion": 4,
+        "costo": 3500,
+        "descripcion": null
+    }
+]

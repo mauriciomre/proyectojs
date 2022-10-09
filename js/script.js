@@ -1,5 +1,20 @@
+let turnosArray = [];
+let turnos = [];
+let servicios = [];
+
+fetch("../data.json")
+    .then((response) => response.json())
+    .then((data) => {
+        console.log(data);
+        servicios = data;
+        start();
+    });
+
+console.log(servicios);
+
 class Turno {
-    constructor(nombreCliente, apellidoCliente, servicio, horario, dia) {
+    constructor(id, nombreCliente, apellidoCliente, servicio, horario, dia) {
+        this.id = id;
         this.nombreCliente = nombreCliente;
         this.apellidoCliente = apellidoCliente;
         this.servicio = Number(servicio);
@@ -18,13 +33,9 @@ class Servicio {
     }
 }
 
-let turnosArray = [];
-let turnos = [];
-let servicios = [];
-
-servicios.push(new Servicio(0, "Semi", "2", "1500"));
-servicios.push(new Servicio(1, "Service", "3", "2500"));
-servicios.push(new Servicio(2, "Esculpido", "4", "3500"));
+// servicios.push(new Servicio(0, "Semi", "2", "1500"));
+// servicios.push(new Servicio(1, "Service", "3", "2500"));
+// servicios.push(new Servicio(2, "Esculpido", "4", "3500"));
 
 function verListaServicios() {
     let servicioDisponible = document.querySelector("#servicio");
@@ -85,20 +96,16 @@ function mostrarTurnos() {
     if (turnos.length) {
         for (let i = 0; i < turnos.length; i++) {
             if (turnos[i] !== undefined && turnos[i] !== null) {
-                if (turnos[i].id == undefined) {
-                    turnos[i].id = i;
-                }
-
                 tbodyTurnos.innerHTML +=
                     // prettier-ignore
                     `<tr>
-                        <th scope="row">${i}</th>
+                        <th scope="row">${turnos[i].id}</th>
                         <td>${turnos[i].horario}:00hs a ${turnos[i].horario + servicios[turnos[i].servicio].duracion}:00hs</td>
                         <td>${servicios[turnos[i].servicio].nombreServicio}</td>
                         <td>${turnos[i].nombreCliente}</td>
                         <td>${turnos[i].apellidoCliente}</td>
                         <td>
-                        <i id="borrarTurno${i}" class="click fa-solid fa-trash btn text-danger"></i>
+                        <i id="borrarTurno${turnos[i].id}" class="click fa-solid fa-trash btn text-danger"></i>
                         </td>
                     </tr>`;
             }
@@ -116,9 +123,13 @@ function eliminarTurno() {
 
             element.parentElement.remove();
 
-            let numeroID = id.substring(11);
+            let substringID = Number(id.substring(11));
 
-            turnos.splice(numeroID, 1);
+            let indiceTurno = turnos.findIndex((element) => element.id === substringID);
+
+            console.log(indiceTurno);
+
+            turnos.splice(indiceTurno, 1);
 
             msjEliminarTurno();
 
@@ -148,7 +159,20 @@ function agregarTurno() {
 
     turno.horario = Number(document.querySelector("#horario").value);
 
+    let nuevoID = 0;
+
+    (function generarNuevoID() {
+        if (turnos.findIndex((ElTurno) => ElTurno.id === nuevoID) === -1) {
+            turno.id = nuevoID;
+        } else {
+            nuevoID++;
+            generarNuevoID();
+        }
+    })();
+
     turnos.push(turno);
+
+    console.log(turnos);
 
     msjAgregarTurno();
 
@@ -184,6 +208,14 @@ function msjEliminarTurno() {
     }).showToast();
 }
 
+function crearCalendario() {
+    let calendarEl = document.getElementById("calendar");
+    let calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: "dayGridMonth",
+    });
+    calendar.render();
+}
+
 let btnAgregarTurno = document.querySelector("#agregarTurno");
 let selectServicio = document.querySelector("#servicio");
 let selectHorario = document.querySelector("#horario");
@@ -195,12 +227,18 @@ selectHorario.addEventListener("change", () => {
         btnAgregarTurno.removeAttribute("disabled");
     }
 });
-verListaServicios();
-obtenerTurnos();
-mostrarTurnos();
-verHorariosDisponibles();
+
+function start() {
+    verListaServicios();
+    obtenerTurnos();
+    mostrarTurnos();
+    verHorariosDisponibles();
+    // crearCalendario();
+}
 
 // TAREAS PENDIENTES
+
+// Optimizar codigo con operadores avanzados
 
 // Incluir calendario (usar libreria LUXON) para elegir el dia del turno
 
