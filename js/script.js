@@ -5,12 +5,9 @@ let servicios = [];
 fetch("../data.json")
     .then((response) => response.json())
     .then((data) => {
-        console.log(data);
         servicios = data;
         start();
     });
-
-console.log(servicios);
 
 class Turno {
     constructor(id, nombreCliente, apellidoCliente, servicio, horario, dia) {
@@ -56,6 +53,7 @@ function verHorariosDisponibles() {
     }
     if (selectServicio.value !== "") {
         selectHorario.removeAttribute("disabled");
+        selectHorario.setAttribute("class", "form-select mb-3");
         for (let i = 8; i <= 18; i++) {
             estaDisponible = true;
             if (turnos.length) {
@@ -99,7 +97,6 @@ function mostrarTurnos() {
                 tbodyTurnos.innerHTML +=
                     // prettier-ignore
                     `<tr>
-                        <th scope="row">${turnos[i].id}</th>
                         <td>${turnos[i].horario}:00hs a ${turnos[i].horario + servicios[turnos[i].servicio].duracion}:00hs</td>
                         <td>${servicios[turnos[i].servicio].nombreServicio}</td>
                         <td>${turnos[i].nombreCliente}</td>
@@ -126,8 +123,6 @@ function eliminarTurno() {
             let substringID = Number(id.substring(11));
 
             let indiceTurno = turnos.findIndex((element) => element.id === substringID);
-
-            console.log(indiceTurno);
 
             turnos.splice(indiceTurno, 1);
 
@@ -159,6 +154,10 @@ function agregarTurno() {
 
     turno.horario = Number(document.querySelector("#horario").value);
 
+    turno.dia = document.querySelector("#fechaTurno").value;
+
+    console.log(turno.dia);
+
     let nuevoID = 0;
 
     (function generarNuevoID() {
@@ -171,8 +170,6 @@ function agregarTurno() {
     })();
 
     turnos.push(turno);
-
-    console.log(turnos);
 
     msjAgregarTurno();
 
@@ -226,6 +223,19 @@ selectHorario.addEventListener("change", () => {
     if (selectHorario.value !== "") {
         btnAgregarTurno.removeAttribute("disabled");
     }
+});
+
+document.addEventListener("DOMContentLoaded", function (event) {
+    document.getElementById("flip-card-btn-turn-to-back").style.visibility = "visible";
+    document.getElementById("flip-card-btn-turn-to-front").style.visibility = "visible";
+
+    document.getElementById("flip-card-btn-turn-to-back").onclick = function () {
+        document.getElementById("flip-card").classList.toggle("do-flip");
+    };
+
+    document.getElementById("flip-card-btn-turn-to-front").onclick = function () {
+        document.getElementById("flip-card").classList.toggle("do-flip");
+    };
 });
 
 function start() {
