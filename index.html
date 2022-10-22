@@ -11,6 +11,7 @@
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous"> -->
 
     <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/litepicker/dist/css/litepicker.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
@@ -28,10 +29,16 @@
                 <div class="card-header h4 text-light d-flex justify-content-between">
 
                     <span class="align-self-center">AGENDA DE TURNOS</span>
-                    <input class="form-control fechaTurno text-secondary" type="date" id="fechaTurno">
+
+                    <!-- <input class="form-control fechaTurno text-secondary date" type="date" id="fechaTurno"> -->
+
                     <i id="flip-card-btn-turn-to-back" type="button" class="bi bi-gear-fill align-self-center"></i>
                 </div>
-                <div class="card-header" id="calendar"></div>
+                <div class="card-header input-group col flex-nowrap">
+                    <span class="input-group-text" id="basic-addon1">Fecha</span>
+                    <input id="datePicker" type="text" class="form-control" placeholder="Fecha" aria-label="Fecha"
+                        aria-describedby="basic-addon1">
+                </div>
 
                 <div class="card-body">
 
@@ -93,7 +100,10 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/3.0.4/luxon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/litepicker.js"></script>
+    <script src="./js/datepicker.js"></script>
     <script src="./js/script.js"></script>
+
 </body>
 
 </html>
