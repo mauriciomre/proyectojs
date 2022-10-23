@@ -85,24 +85,32 @@ function obtenerTurnos() {
 }
 
 function mostrarTurnos() {
-    turnos.sort(function (a, b) {
+    let tbodyTurnos = document.querySelector("#tbodyTurnos");
+    tbodyTurnos.innerHTML = "";
+
+    let fechaSeleccionada = document.querySelector("#fechaTurno");
+    let turnosF = turnos.filter((turno) => turno.dia == fechaSeleccionada.value);
+
+    console.log(fechaSeleccionada.value);
+
+    turnosF.sort(function (a, b) {
         a = a || 0;
         b = b || 0;
         return a.horario - b.horario;
     });
 
-    if (turnos.length) {
-        for (let i = 0; i < turnos.length; i++) {
-            if (turnos[i] !== undefined && turnos[i] !== null) {
+    if (turnosF.length) {
+        for (let i = 0; i < turnosF.length; i++) {
+            if (turnosF[i] !== undefined && turnosF[i] !== null) {
                 tbodyTurnos.innerHTML +=
                     // prettier-ignore
                     `<tr>
-                        <td>${turnos[i].horario}:00hs a ${turnos[i].horario + servicios[turnos[i].servicio].duracion}:00hs</td>
-                        <td>${servicios[turnos[i].servicio].nombreServicio}</td>
-                        <td>${turnos[i].nombreCliente}</td>
-                        <td>${turnos[i].apellidoCliente}</td>
+                        <td>${turnosF[i].horario}:00hs a ${turnosF[i].horario + servicios[turnosF[i].servicio].duracion}:00hs</td>
+                        <td>${servicios[turnosF[i].servicio].nombreServicio}</td>
+                        <td>${turnosF[i].nombreCliente}</td>
+                        <td>${turnosF[i].apellidoCliente}</td>
                         <td>
-                        <i id="borrarTurno${turnos[i].id}" class="click fa-solid fa-trash btn text-danger"></i>
+                        <i id="borrarTurno${turnosF[i].id}" class="click fa-solid fa-trash btn text-danger"></i>
                         </td>
                     </tr>`;
             }
@@ -141,9 +149,6 @@ function guardarTurnosLS() {
 }
 
 function agregarTurno() {
-    let tbodyTurnos = document.querySelector("#tbodyTurnos");
-    tbodyTurnos.innerHTML = "";
-
     let turno = new Turno();
 
     turno.nombreCliente = document.querySelector("#nombreCliente").value;
@@ -155,8 +160,6 @@ function agregarTurno() {
     turno.horario = Number(document.querySelector("#horario").value);
 
     turno.dia = document.querySelector("#fechaTurno").value;
-
-    console.log(turno.dia);
 
     let nuevoID = 0;
 
@@ -205,13 +208,13 @@ function msjEliminarTurno() {
     }).showToast();
 }
 
-function crearCalendario() {
-    let calendarEl = document.getElementById("calendar");
-    let calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: "dayGridMonth",
-    });
-    calendar.render();
-}
+// function crearCalendario() {
+//     let calendarEl = document.getElementById("calendar");
+//     let calendar = new FullCalendar.Calendar(calendarEl, {
+//         initialView: "dayGridMonth",
+//     });
+//     calendar.render();
+// }
 
 let btnAgregarTurno = document.querySelector("#agregarTurno");
 let selectServicio = document.querySelector("#servicio");
@@ -248,14 +251,10 @@ function start() {
 
 // TAREAS PENDIENTES
 
-// Optimizar codigo con operadores avanzados
-
-// Incluir calendario (usar libreria LUXON) para elegir el dia del turno
+// mostrar horarios disponibles en relacion al dia seleccionado
 
 // Seccion de agregar, modificar y borrar Servicios
 
 // Validar Nombre y Apellido
 
 // Avisar si no hay horarios disponibles de todos los servicios o de alguno en particular
-
-// Usar Bootswatch para darle mejor estilo

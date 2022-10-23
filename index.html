@@ -36,12 +36,14 @@
                 </div>
                 <div class="card-header input-group col flex-nowrap">
                     <span class="input-group-text" id="basic-addon1">Fecha</span>
-                    <input id="datePicker" type="text" class="form-control" placeholder="Selecciona una fecha"
-                        aria-label="Fecha" aria-describedby="basic-addon1">
+                    <input id="fechaTurno" type="text" class="form-control" placeholder="Selecciona una fecha"
+                        aria-label="Fecha">
                 </div>
 
-                <div class="card-body">
-
+                <div class="card-header">
+                    <div class="card-header mb-2">
+                        <span id="textNuevoTurno" class="align-self-center h6">NUEVO TURNO</span>
+                    </div>
                     <form class="card-title">
                         <div class="row mb-3">
                             <div class="col">
@@ -62,8 +64,15 @@
                         <select id="horario" class="form-control mb-3" aria-label="Default select example" disabled="">
                         </select>
 
-                        <button id="agregarTurno" type="button" class="btn btn-primary mb-2">Agregar</button>
+                        <button id="agregarTurno" type="button" class="btn btn-primary">Agregar</button>
                     </form>
+
+
+                </div>
+                <div class="card-body">
+                    <div class="card-header mb-3">
+                        <span id="textoListaDeTurnos" class="h6">LISTA DE TURNOS</span>
+                    </div>
 
                     <table id="tablaTurnos" class="table">
                         <thead>
@@ -73,8 +82,6 @@
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Apellido</th>
                                 <th scope="col"></th>
-
-
                             </tr>
                         </thead>
                         <tbody id="tbodyTurnos">
@@ -101,8 +108,8 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/3.0.4/luxon.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/litepicker.js"></script>
-    <script src="./js/datepicker.js"></script>
     <script src="./js/script.js"></script>
+    <script src="./js/datepicker.js"></script>
 
 </body>
 
