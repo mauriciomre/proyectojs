@@ -73,6 +73,11 @@ td {
     border: none;
 }
 
+.litepicker .container__months {
+    background-color: rgba(240, 255, 255, 0.247);
+    backdrop-filter: blur(10px);
+}
+
 @media (max-width: 30em) {
     .card {
         border-radius: 0%;

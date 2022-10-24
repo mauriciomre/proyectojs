@@ -11,7 +11,6 @@
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous"> -->
 
     <link rel="stylesheet" href="./css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/litepicker/dist/css/litepicker.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
@@ -45,15 +44,17 @@
                         <span id="textNuevoTurno" class="align-self-center h6">NUEVO TURNO</span>
                     </div>
                     <form class="card-title">
-                        <div class="row mb-3">
-                            <div class="col">
+                        <div class="row">
+
+                            <div class="col-md-6 mb-1">
                                 <input id="nombreCliente" type="text" class="form-control" placeholder="Nombre"
                                     aria-label="Nombre">
                             </div>
-                            <div class="col">
+                            <div class="col-md-6 mb-3">
                                 <input id="apellidoCliente" type="text" class="form-control" placeholder="Apellido"
                                     aria-label="Apellido">
                             </div>
+
                         </div>
 
 
@@ -91,11 +92,115 @@
                 </div>
 
             </div>
+
             <div class="card flip-card-back bg-secondary">
                 <div class="card-header h4 text-light d-flex justify-content-between">
                     <span class="align-self-center">CONFIGURACIÓN</span>
                     <i type="button" id="flip-card-btn-turn-to-front"
                         class="fa-sharp fa-solid fa-arrow-rotate-left align-self-center"></i>
+                </div>
+
+                <div class="card-body">
+
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#panelServicios" aria-selected="true"
+                                role="tab">Servicios</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" data-bs-toggle="tab" href="#profile" aria-selected="false" tabindex="-1"
+                                role="tab">Profile</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link disabled" href="#" aria-selected="false" tabindex="-1"
+                                role="tab">Disabled</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                                aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Separated link</a>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div id="myTabContent" class="tab-content">
+
+                        <div class="tab-pane fade show active" id="panelServicios" role="tabpanel">
+
+                            <div class="card-header">
+                                <div class="card-header mb-2">
+                                    <span id="textNuevoServicio" class="align-self-center h6">NUEVO SERVICIO</span>
+                                </div>
+                                <form class="card-title">
+                                    <div class="row">
+
+                                        <div class="col mb-3">
+                                            <input id="nombreServicio" type="text" class="form-control"
+                                                placeholder="Servicio" aria-label="Servicio">
+                                        </div>
+
+                                        <div class="col mb-3">
+                                            <input id="duracionServicio" type="number" min="1" max="12" step="1"
+                                                class="form-control" placeholder="Duración (Hs)" aria-label="Duracion">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col input-group mb-3">
+                                        <span class="input-group-text">$</span>
+                                        <input type="text" class="form-control" placeholder="Precio"
+                                            aria-label="precio">
+                                        <span class="input-group-text">.00</span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="exampleTextarea" class="form-label">Descripción</label>
+                                        <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+                                    </div>
+
+
+                            </div>
+                            <div class="card-body">
+                                <div class="card-header mb-3">
+                                    <span id="textoListaDeServicios" class="h6">SERVICIOS</span>
+                                </div>
+
+
+
+
+                            </div>
+
+                        </div>
+
+                        <div class="tab-pane fade" id="profile" role="tabpanel">
+                            <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.
+                                Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson
+                                artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo
+                                enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud
+                                organic, assumenda labore aesthetic magna delectus mollit.</p>
+                        </div>
+
+                        <div class="tab-pane fade" id="dropdown1">
+                            <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's
+                                organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify
+                                pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy
+                                hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred
+                                pitchfork.</p>
+                        </div>
+
+                        <div class="tab-pane fade" id="dropdown2">
+                            <p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold
+                                out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack
+                                portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred
+                                vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral
+                                locavore cosby sweater.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

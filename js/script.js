@@ -1,6 +1,7 @@
 let turnosArray = [];
-let turnos = [];
 let servicios = [];
+let turnos = [];
+let turnosF = [];
 
 fetch("../data.json")
     .then((response) => response.json())
@@ -56,13 +57,13 @@ function verHorariosDisponibles() {
         selectHorario.setAttribute("class", "form-select mb-3");
         for (let i = 8; i <= 18; i++) {
             estaDisponible = true;
-            if (turnos.length) {
-                for (let j = 0; j < turnos.length; j++) {
-                    if (turnos[j] !== undefined && turnos[j] !== null) {
+            if (turnosF.length) {
+                for (let j = 0; j < turnosF.length; j++) {
+                    if (turnosF[j] !== undefined && turnosF[j] !== null) {
                         let duracionServicioSeleccionado = servicios[Number(selectServicio.value)].duracion;
 
-                        let duracionTurnoAgendado = servicios[turnos[j].servicio].duracion;
-                        let horarioTurnosAgendado = turnos[j].horario;
+                        let duracionTurnoAgendado = servicios[turnosF[j].servicio].duracion;
+                        let horarioTurnosAgendado = turnosF[j].horario;
                         let finTurnoAgendado = horarioTurnosAgendado + duracionTurnoAgendado;
                         if (i < finTurnoAgendado && i + duracionServicioSeleccionado > horarioTurnosAgendado) {
                             estaDisponible = false;
@@ -89,7 +90,7 @@ function mostrarTurnos() {
     tbodyTurnos.innerHTML = "";
 
     let fechaSeleccionada = document.querySelector("#fechaTurno");
-    let turnosF = turnos.filter((turno) => turno.dia == fechaSeleccionada.value);
+    turnosF = turnos.filter((turno) => turno.dia == fechaSeleccionada.value);
 
     console.log(fechaSeleccionada.value);
 
@@ -188,7 +189,7 @@ function msjAgregarTurno() {
         className: "info",
         duration: 1000,
         position: "right",
-        gravity: "bottom",
+        gravity: "top",
         style: {
             background: "linear-gradient(to right, #00b09b, #96c93d)",
         },
@@ -201,7 +202,7 @@ function msjEliminarTurno() {
         className: "info",
         duration: 1000,
         position: "right",
-        gravity: "bottom",
+        gravity: "top",
         style: {
             background: "linear-gradient(to right, #db3a6e, #de3075)",
         },

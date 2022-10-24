@@ -3,6 +3,7 @@ new Litepicker({
     format: "DD / MM / YYYY",
     startDate: new Date(),
     lang: "es-ES",
+    resetButton: true,
     setup: (picker) => {
         picker.on("hide", () => {
             mostrarTurnos();
