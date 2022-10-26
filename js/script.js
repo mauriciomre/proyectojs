@@ -140,6 +140,7 @@ function eliminarTurno() {
             selectServicio.value = "";
             verHorariosDisponibles();
             guardarTurnosLS();
+            mostrarTurnos();
         });
     });
 }
@@ -217,6 +218,30 @@ function msjEliminarTurno() {
 //     calendar.render();
 // }
 
+function configMostrarServicios() {
+    let mensajeError = "No hay descripción";
+    let configListaServicios = document.querySelector("#configListaServicios");
+    configListaServicios.innerHTML = "";
+
+    if (servicios) {
+        for (let i = 0; i < servicios.length; i++) {
+            configListaServicios.innerHTML += `
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <div class="card border-secondary mb-3">
+                    <div class="card-header">${servicios[i].nombreServicio}</div>
+                    <div class="card-body">
+                        <h4 class="card-title">Duración: ${servicios[i].duracion}hs </h4>
+                        <h4 class="card-title">Precio: $${servicios[i].costo} </h4>
+                        <p class="card-text">${servicios[i].descripcion ? servicios[i].descripcion : mensajeError}</p>
+                    </div>
+                </div>
+            </div>
+            `;
+        }
+    }
+    // eliminarServicio();
+}
+
 let btnAgregarTurno = document.querySelector("#agregarTurno");
 let selectServicio = document.querySelector("#servicio");
 let selectHorario = document.querySelector("#horario");
@@ -247,12 +272,11 @@ function start() {
     obtenerTurnos();
     mostrarTurnos();
     verHorariosDisponibles();
+    configMostrarServicios();
     // crearCalendario();
 }
 
 // TAREAS PENDIENTES
-
-// mostrar horarios disponibles en relacion al dia seleccionado
 
 // Seccion de agregar, modificar y borrar Servicios
 

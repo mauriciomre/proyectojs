@@ -6,7 +6,7 @@ new Litepicker({
     resetButton: true,
     setup: (picker) => {
         picker.on("hide", () => {
-            mostrarTurnos();
+            start();
         });
 
         picker.on("error:date", () => {

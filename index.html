@@ -93,7 +93,7 @@
 
             </div>
 
-            <div class="card flip-card-back bg-secondary">
+            <div id="panelConfig" class="card flip-card-back bg-secondary">
                 <div class="card-header h4 text-light d-flex justify-content-between">
                     <span class="align-self-center">CONFIGURACIÓN</span>
                     <i type="button" id="flip-card-btn-turn-to-front"
@@ -153,14 +153,14 @@
 
                                     <div class="col input-group mb-3">
                                         <span class="input-group-text">$</span>
-                                        <input type="text" class="form-control" placeholder="Precio"
+                                        <input type="number" class="form-control" placeholder="Precio"
                                             aria-label="precio">
                                         <span class="input-group-text">.00</span>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="exampleTextarea" class="form-label">Descripción</label>
-                                        <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+                                        <label for="descTextarea" class="form-label">Descripción</label>
+                                        <textarea class="form-control" id="descTextarea" rows="3"></textarea>
                                     </div>
 
 
@@ -170,8 +170,11 @@
                                     <span id="textoListaDeServicios" class="h6">SERVICIOS</span>
                                 </div>
 
+                                <div class="container text-center">
+                                    <div class="row" id="configListaServicios">
 
-
+                                    </div>
+                                </div>
 
                             </div>
 
