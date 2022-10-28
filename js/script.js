@@ -135,7 +135,7 @@ function eliminarTurno() {
 
             turnos.splice(indiceTurno, 1);
 
-            msjEliminarTurno();
+            msjToastify("Turno eliminado!", "right", "top", "linear-gradient(to right, #db3a6e, #de3075)");
 
             selectServicio.value = "";
             verHorariosDisponibles();
@@ -176,7 +176,7 @@ function agregarTurno() {
 
     turnos.push(turno);
 
-    msjAgregarTurno();
+    msjToastify("Nuevo turno agregado!", "right", "top", "linear-gradient(to right, #00b09b, #96c93d)");
 
     mostrarTurnos();
     verListaServicios();
@@ -184,28 +184,15 @@ function agregarTurno() {
     guardarTurnosLS();
 }
 
-function msjAgregarTurno() {
+function msjToastify(msj, position, gravity, background) {
     Toastify({
-        text: "Turno agendado!",
+        text: msj,
         className: "info",
-        duration: 1000,
-        position: "right",
-        gravity: "top",
+        duration: 1500,
+        position: position,
+        gravity: gravity,
         style: {
-            background: "linear-gradient(to right, #00b09b, #96c93d)",
-        },
-    }).showToast();
-}
-
-function msjEliminarTurno() {
-    Toastify({
-        text: "Turno eliminado!",
-        className: "info",
-        duration: 1000,
-        position: "right",
-        gravity: "top",
-        style: {
-            background: "linear-gradient(to right, #db3a6e, #de3075)",
+            background: background,
         },
     }).showToast();
 }
@@ -228,7 +215,13 @@ function configMostrarServicios() {
             configListaServicios.innerHTML += `
             <div class="col-sm-12 col-md-6 col-lg-4">
                 <div class="card border-secondary mb-3">
-                    <div class="card-header">${servicios[i].nombreServicio}</div>
+                    <div class="card-header-servicios card-header d-flex justify-content-between">
+                        <span class="align-self-center mx-2">${servicios[i].nombreServicio.toUpperCase()}</span>
+                    
+                        <i id="borrarTurno${
+                            servicios.id
+                        }" class="click fa-solid fa-trash btn text-danger btn-borrar-servicio"></i>
+                    </div>
                     <div class="card-body">
                         <h4 class="card-title">Duración: ${servicios[i].duracion}hs </h4>
                         <h4 class="card-title">Precio: $${servicios[i].costo} </h4>
@@ -242,9 +235,42 @@ function configMostrarServicios() {
     // eliminarServicio();
 }
 
+function agregarServicio() {
+    let servicio = new Servicio();
+
+    servicio.nombreServicio = document.querySelector("#nombreServicio").value;
+
+    servicio.duracion = Number(document.querySelector("#duracionServicio").value);
+
+    servicio.costo = Number(document.querySelector("#costoServicio").value);
+
+    servicio.descripcion = document.querySelector("#descTextarea").value;
+
+    console.log(servicio.descripcion);
+
+    let nuevoID = 0;
+
+    (function generarNuevoID() {
+        if (servicios.findIndex((ElServicio) => ElServicio.id === nuevoID) === -1) {
+            servicio.id = nuevoID;
+        } else {
+            nuevoID++;
+            generarNuevoID();
+        }
+    })();
+
+    servicios.push(servicio);
+
+    msjToastify("Nuevo servicio agregado!", "right", "top", "linear-gradient(to right, #00b09b, #96c93d)");
+
+    configMostrarServicios();
+    document.getElementById("formServicios").reset();
+}
+
 let btnAgregarTurno = document.querySelector("#agregarTurno");
 let selectServicio = document.querySelector("#servicio");
 let selectHorario = document.querySelector("#horario");
+let btnAgregarServicio = document.querySelector("#agregarServicio");
 
 btnAgregarTurno.addEventListener("click", agregarTurno);
 selectServicio.addEventListener("change", () => verHorariosDisponibles());
@@ -253,6 +279,7 @@ selectHorario.addEventListener("change", () => {
         btnAgregarTurno.removeAttribute("disabled");
     }
 });
+btnAgregarServicio.addEventListener("click", agregarServicio);
 
 document.addEventListener("DOMContentLoaded", function (event) {
     document.getElementById("flip-card-btn-turn-to-back").style.visibility = "visible";
@@ -278,7 +305,9 @@ function start() {
 
 // TAREAS PENDIENTES
 
-// Seccion de agregar, modificar y borrar Servicios
+// Agregar evento al boton de eliminar servicio
+
+// Seccion de agregar y borrar Servicios
 
 // Validar Nombre y Apellido
 

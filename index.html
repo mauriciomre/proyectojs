@@ -136,7 +136,7 @@
                                 <div class="card-header mb-2">
                                     <span id="textNuevoServicio" class="align-self-center h6">NUEVO SERVICIO</span>
                                 </div>
-                                <form class="card-title">
+                                <form id="formServicios" class="card-title">
                                     <div class="row">
 
                                         <div class="col mb-3">
@@ -153,17 +153,18 @@
 
                                     <div class="col input-group mb-3">
                                         <span class="input-group-text">$</span>
-                                        <input type="number" class="form-control" placeholder="Precio"
+                                        <input id="costoServicio" type="number" class="form-control" placeholder="Costo"
                                             aria-label="precio">
                                         <span class="input-group-text">.00</span>
                                     </div>
 
-                                    <div class="form-group">
+                                    <div class="form-group mb-3">
                                         <label for="descTextarea" class="form-label">Descripción</label>
                                         <textarea class="form-control" id="descTextarea" rows="3"></textarea>
                                     </div>
 
-
+                                    <button id="agregarServicio" type="button" class="btn btn-primary">Agregar</button>
+                                </form>
                             </div>
                             <div class="card-body">
                                 <div class="card-header mb-3">
