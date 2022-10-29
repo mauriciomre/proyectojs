@@ -8,9 +8,5 @@ new Litepicker({
         picker.on("hide", () => {
             start();
         });
-
-        picker.on("error:date", () => {
-            console.log("error fecha");
-        });
     },
 });

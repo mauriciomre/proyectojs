@@ -92,8 +92,6 @@ function mostrarTurnos() {
     let fechaSeleccionada = document.querySelector("#fechaTurno");
     turnosF = turnos.filter((turno) => turno.dia == fechaSeleccionada.value);
 
-    console.log(fechaSeleccionada.value);
-
     turnosF.sort(function (a, b) {
         a = a || 0;
         b = b || 0;
@@ -121,6 +119,7 @@ function mostrarTurnos() {
 }
 
 function eliminarTurno() {
+    console.log(document.querySelectorAll(".click"));
     document.querySelectorAll(".click").forEach((el) => {
         el.addEventListener("click", (e) => {
             const id = e.target.getAttribute("id");
@@ -130,6 +129,8 @@ function eliminarTurno() {
             element.parentElement.remove();
 
             let substringID = Number(id.substring(11));
+
+            console.log(substringID);
 
             let indiceTurno = turnos.findIndex((element) => element.id === substringID);
 
@@ -218,7 +219,7 @@ function configMostrarServicios() {
                     <div class="card-header-servicios card-header d-flex justify-content-between">
                         <span class="align-self-center mx-2">${servicios[i].nombreServicio.toUpperCase()}</span>
                     
-                        <i id="borrarTurno${
+                        <i id="borrarServicio${
                             servicios.id
                         }" class="click fa-solid fa-trash btn text-danger btn-borrar-servicio"></i>
                     </div>
@@ -245,8 +246,6 @@ function agregarServicio() {
     servicio.costo = Number(document.querySelector("#costoServicio").value);
 
     servicio.descripcion = document.querySelector("#descTextarea").value;
-
-    console.log(servicio.descripcion);
 
     let nuevoID = 0;
 

@@ -88,16 +88,25 @@ td {
 }
 
 .btn-borrar-servicio {
+    color: rgb(172, 38, 38) !important;
     background-color: rgba(255, 145, 0, 0.192);
     transition: 200ms;
+    border-radius: 0 8px 0 0 !important;
+    border-left: 1px solid #9f819d;
 }
 
 .btn-borrar-servicio:hover {
     filter: brightness(20%);
-    background-color: rgba(255, 187, 0, 0.185) !important;
+    background-color: rgba(221, 174, 45, 0.548) !important;
     transition: 200ms;
-    border-radius: 0 8px 0 0 !important;
-    color: white !important;
+    color: rgb(255, 255, 255) !important;
+}
+
+.arrow {
+    width: 1.5rem;
+    rotate: 180deg;
+    filter: invert(100%);
+    cursor: pointer;
 }
 
 @media (max-width: 30em) {
