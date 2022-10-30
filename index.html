@@ -57,8 +57,6 @@
 
                         </div>
 
-
-
                         <select id="servicio" class="form-select mb-3" aria-label="Default select example">
 
                         </select>
@@ -102,34 +100,53 @@
                 <div class="card-body">
 
                     <ul class="nav nav-tabs" role="tablist">
+
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link active" data-bs-toggle="tab" href="#panelServicios" aria-selected="true"
+                            <a class="nav-link active" data-bs-toggle="tab" href="#panelGeneral" aria-selected="true"
+                                role="tab">GENERAL</a>
+                        </li>
+
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" data-bs-toggle="tab" href="#panelServicios" aria-selected="true"
                                 role="tab">Servicios</a>
                         </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link" data-bs-toggle="tab" href="#profile" aria-selected="false" tabindex="-1"
-                                role="tab">Profile</a>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link disabled" href="#" aria-selected="false" tabindex="-1"
-                                role="tab">Disabled</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                                aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Separated link</a>
-                            </div>
-                        </li>
+
+
                     </ul>
 
                     <div id="myTabContent" class="tab-content">
 
-                        <div class="tab-pane fade show active" id="panelServicios" role="tabpanel">
+                        <div class="tab-pane fade show active" id="panelGeneral" role="tabpanel">
+                            <div class="container-fluid">
+                                <fieldset class="form-group">
+                                    <legend class="mt-4">Skin</legend>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="optionsRadios"
+                                            id="optionsRadios1" value="option1" checked="">
+                                        <label class="form-check-label" for="optionsRadios1">
+                                            Original
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="optionsRadios"
+                                            id="optionsRadios2" value="option2">
+                                        <label class="form-check-label" for="optionsRadios2">
+                                            Green
+                                        </label>
+                                    </div>
+                                    <div class="form-check disabled">
+                                        <input class="form-check-input" type="radio" name="optionsRadios"
+                                            id="optionsRadios3" value="option3">
+                                        <label class="form-check-label" for="optionsRadios3">
+                                            Dark
+                                        </label>
+                                    </div>
+                                </fieldset>
+
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="panelServicios" role="tabpanel">
 
                             <div class="card-header">
                                 <div class="card-header mb-2">
@@ -180,29 +197,8 @@
 
                         </div>
 
-                        <div class="tab-pane fade" id="profile" role="tabpanel">
-                            <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.
-                                Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson
-                                artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo
-                                enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud
-                                organic, assumenda labore aesthetic magna delectus mollit.</p>
-                        </div>
 
-                        <div class="tab-pane fade" id="dropdown1">
-                            <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's
-                                organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify
-                                pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy
-                                hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred
-                                pitchfork.</p>
-                        </div>
 
-                        <div class="tab-pane fade" id="dropdown2">
-                            <p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold
-                                out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack
-                                portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred
-                                vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral
-                                locavore cosby sweater.</p>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -216,9 +212,6 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/3.0.4/luxon.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/litepicker.js"></script>
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"
-        integrity="sha512-naukR7I+Nk6gp7p5TMA4ycgfxaZBJ7MO5iC3Fp6ySQyKFHOGfpkSZkYVWV5R7u7cfAicxanwYQ5D1e17EfJcMA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="./js/script.js"></script>
     <script src="./js/datepicker.js"></script>
 

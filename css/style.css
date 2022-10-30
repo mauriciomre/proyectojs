@@ -109,6 +109,10 @@ td {
     cursor: pointer;
 }
 
+.btn-borrar-turno {
+    color: rgb(172, 38, 38) !important;
+}
+
 @media (max-width: 30em) {
     .card {
         border-radius: 0%;

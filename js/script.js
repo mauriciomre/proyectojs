@@ -109,7 +109,7 @@ function mostrarTurnos() {
                         <td>${turnosF[i].nombreCliente}</td>
                         <td>${turnosF[i].apellidoCliente}</td>
                         <td>
-                        <i id="borrarTurno${turnosF[i].id}" class="click fa-solid fa-trash btn text-danger"></i>
+                        <i id="borrarTurno${turnosF[i].id}" class="clickTurno fa-solid fa-trash btn text-danger btn-borrar-turno"></i>
                         </td>
                     </tr>`;
             }
@@ -119,8 +119,7 @@ function mostrarTurnos() {
 }
 
 function eliminarTurno() {
-    console.log(document.querySelectorAll(".click"));
-    document.querySelectorAll(".click").forEach((el) => {
+    document.querySelectorAll(".clickTurno").forEach((el) => {
         el.addEventListener("click", (e) => {
             const id = e.target.getAttribute("id");
 
@@ -151,6 +150,11 @@ function guardarTurnosLS() {
     localStorage.setItem("misTurnos", turnosStr);
 }
 
+function guardarServiciosLS() {
+    const serviciosStr = JSON.stringify(servicios);
+    localStorage.setItem("misServicios", serviciosStr);
+}
+
 function agregarTurno() {
     let turno = new Turno();
 
@@ -179,10 +183,10 @@ function agregarTurno() {
 
     msjToastify("Nuevo turno agregado!", "right", "top", "linear-gradient(to right, #00b09b, #96c93d)");
 
+    guardarTurnosLS();
     mostrarTurnos();
     verListaServicios();
     verHorariosDisponibles();
-    guardarTurnosLS();
 }
 
 function msjToastify(msj, position, gravity, background) {
@@ -221,7 +225,7 @@ function configMostrarServicios() {
                     
                         <i id="borrarServicio${
                             servicios.id
-                        }" class="click fa-solid fa-trash btn text-danger btn-borrar-servicio"></i>
+                        }" class="clickServicio fa-solid fa-trash btn text-danger btn-borrar-servicio"></i>
                     </div>
                     <div class="card-body">
                         <h4 class="card-title">Duración: ${servicios[i].duracion}hs </h4>
@@ -233,7 +237,36 @@ function configMostrarServicios() {
             `;
         }
     }
-    // eliminarServicio();
+    eliminarServicio();
+}
+
+function eliminarServicio() {
+    document.querySelectorAll(".clickServicio").forEach((el) => {
+        el.addEventListener("click", (e) => {
+            const id = e.target.getAttribute("id");
+
+            element = e.target.parentElement;
+
+            element.parentElement.remove();
+
+            let substringID = Number(id.substring(11));
+
+            console.log(substringID);
+
+            let indiceServicio = servicios.findIndex((element) => element.id === substringID);
+
+            servicios.splice(indiceServicio, 1);
+
+            msjToastify("Servicio eliminado!", "right", "top", "linear-gradient(to right, #db3a6e, #de3075)");
+
+            selectServicio.value = "";
+
+            guardarServiciosLS();
+            configMostrarServicios();
+            verListaServicios();
+            verHorariosDisponibles();
+        });
+    });
 }
 
 function agregarServicio() {
@@ -262,7 +295,10 @@ function agregarServicio() {
 
     msjToastify("Nuevo servicio agregado!", "right", "top", "linear-gradient(to right, #00b09b, #96c93d)");
 
+    guardarServiciosLS();
     configMostrarServicios();
+    verListaServicios();
+    verHorariosDisponibles();
     document.getElementById("formServicios").reset();
 }
 
@@ -304,9 +340,10 @@ function start() {
 
 // TAREAS PENDIENTES
 
-// Agregar evento al boton de eliminar servicio
-
-// Seccion de agregar y borrar Servicios
+// Configuracion general:
+//  - cambiar theme
+//  - opcion de preguntar antes de eliminar
+//  -
 
 // Validar Nombre y Apellido
 
