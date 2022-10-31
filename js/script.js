@@ -3,12 +3,30 @@ let servicios = [];
 let turnos = [];
 let turnosF = [];
 
-fetch("../data.json")
-    .then((response) => response.json())
-    .then((data) => {
-        servicios = data;
-        start();
-    });
+let msjAyuda = `
+Bienvenido/a a tu Agenda Personal de Turnos orientada a la manicuría, con ella podremos agendar turnos de manera ordenada, a continuación veremos paso a paso como se utiliza:
+
+FECHA:
+Lo primero que debemos elegir es la fecha para ver los turnos que tenemos agregados para ese día o bien agregar turnos nuevos (si hay disponibles, claro)
+
+NUEVO TURNO:
+En el apartado de NUEVO TURNO tendremos un formulario en el cual vamos a rellenar los campos con la información requerida (Nombre, Apellido, Servicio y Horario), La asignación de Nombre y apellido son opcionales sin embargo, Servicio y Horario son necesarios para que se nos habilite el boton de Agregar.
+
+SERVICIO Y HORARIO:
+En el campo de Servicio se mostraran los servicios por defecto con su respectiva duración, podrás eliminar o agregar nuevos en la parte de configuración (icono de tuerca arriba a la derecha).
+El campo de Horario no se habilitará hasta que hayamos elegido un servicio anteriormente, ya que los horarios disponibles dependen directamente de la duración del servicio elegido (los horarios de los turnos no se pisan unos con otros)
+
+LISTA DE TURNOS:
+Una vez agregado un nuevo turno, el mismo se vera reflejado en el apartado de LISTA DE TURNOS, donde se veran ordenados según el horario del turno. Aquí podremos ver los turnos agendados a la fecha elegida y tendremos la opción de Eliminar un turno en el caso de que se lo desee.
+
+CONFIGURACIÓN:
+
+    - GENERAL:
+    En este apartado podemos optar por opciones generales que se relacionan con toda Web App
+
+    - SERVICIOS:
+    Se podrá ver los servicios guardados, eliminarlos o agregar nuevos. Tendremos un botón de Reestablecer para volver a las opciones de Servicio por defecto (Semi, Service y Esculpido)
+`;
 
 class Turno {
     constructor(id, nombreCliente, apellidoCliente, servicio, horario, dia) {
@@ -31,9 +49,15 @@ class Servicio {
     }
 }
 
-// servicios.push(new Servicio(0, "Semi", "2", "1500"));
-// servicios.push(new Servicio(1, "Service", "3", "2500"));
-// servicios.push(new Servicio(2, "Esculpido", "4", "3500"));
+function serviciosDefault() {
+    fetch("../data.json")
+        .then((response) => response.json())
+        .then((data) => {
+            servicios = data;
+            configMostrarServicios();
+            verListaServicios();
+        });
+}
 
 function verListaServicios() {
     let servicioDisponible = document.querySelector("#servicio");
@@ -129,8 +153,6 @@ function eliminarTurno() {
 
             let substringID = Number(id.substring(11));
 
-            console.log(substringID);
-
             let indiceTurno = turnos.findIndex((element) => element.id === substringID);
 
             turnos.splice(indiceTurno, 1);
@@ -202,14 +224,6 @@ function msjToastify(msj, position, gravity, background) {
     }).showToast();
 }
 
-// function crearCalendario() {
-//     let calendarEl = document.getElementById("calendar");
-//     let calendar = new FullCalendar.Calendar(calendarEl, {
-//         initialView: "dayGridMonth",
-//     });
-//     calendar.render();
-// }
-
 function configMostrarServicios() {
     let mensajeError = "No hay descripción";
     let configListaServicios = document.querySelector("#configListaServicios");
@@ -224,7 +238,7 @@ function configMostrarServicios() {
                         <span class="align-self-center mx-2">${servicios[i].nombreServicio.toUpperCase()}</span>
                     
                         <i id="borrarServicio${
-                            servicios.id
+                            servicios[i].id
                         }" class="clickServicio fa-solid fa-trash btn text-danger btn-borrar-servicio"></i>
                     </div>
                     <div class="card-body">
@@ -249,9 +263,7 @@ function eliminarServicio() {
 
             element.parentElement.remove();
 
-            let substringID = Number(id.substring(11));
-
-            console.log(substringID);
+            let substringID = Number(id.substring(14));
 
             let indiceServicio = servicios.findIndex((element) => element.id === substringID);
 
@@ -302,10 +314,35 @@ function agregarServicio() {
     document.getElementById("formServicios").reset();
 }
 
+function mostrarAyuda() {
+    Swal.fire(msjAyuda, "Comenzamos?", "question");
+}
+
+let checkbox = document.querySelector("input[name=theme]");
+
+checkbox.addEventListener("change", function () {
+    if (this.checked) {
+        trans();
+        document.documentElement.setAttribute("data-theme", "dark");
+    } else {
+        trans();
+        document.documentElement.setAttribute("data-theme", "light");
+    }
+});
+
+let trans = () => {
+    document.documentElement.classList.add("transition");
+    window.setTimeout(() => {
+        document.documentElement.classList.remove("transition");
+    }, 1000);
+};
+
 let btnAgregarTurno = document.querySelector("#agregarTurno");
 let selectServicio = document.querySelector("#servicio");
 let selectHorario = document.querySelector("#horario");
 let btnAgregarServicio = document.querySelector("#agregarServicio");
+let resetServicios = document.querySelector("#resetServicios");
+let btnAyuda = document.querySelector("#btnAyuda");
 
 btnAgregarTurno.addEventListener("click", agregarTurno);
 selectServicio.addEventListener("change", () => verHorariosDisponibles());
@@ -329,22 +366,24 @@ document.addEventListener("DOMContentLoaded", function (event) {
     };
 });
 
+resetServicios.addEventListener("click", serviciosDefault);
+
+btnAyuda.addEventListener("click", mostrarAyuda);
+
 function start() {
+    JSON.parse(localStorage.getItem("misServicios"))
+        ? (servicios = JSON.parse(localStorage.getItem("misServicios")))
+        : serviciosDefault();
+
+    configMostrarServicios();
     verListaServicios();
     obtenerTurnos();
     mostrarTurnos();
     verHorariosDisponibles();
-    configMostrarServicios();
-    // crearCalendario();
+
+    if (!JSON.parse(localStorage.getItem("misServicios")) && !JSON.parse(localStorage.getItem("misTurnos"))) {
+        setTimeout(mostrarAyuda, 2000);
+    }
 }
 
-// TAREAS PENDIENTES
-
-// Configuracion general:
-//  - cambiar theme
-//  - opcion de preguntar antes de eliminar
-//  -
-
-// Validar Nombre y Apellido
-
-// Avisar si no hay horarios disponibles de todos los servicios o de alguno en particular
+start();
