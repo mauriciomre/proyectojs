@@ -29,12 +29,13 @@ CONFIGURACIÓN:
 `;
 
 class Turno {
-    constructor(id, nombreCliente, apellidoCliente, servicio, horario, dia) {
+    constructor(id, nombreCliente, apellidoCliente, servicio, horario, horarioFin, dia) {
         this.id = id;
         this.nombreCliente = nombreCliente;
         this.apellidoCliente = apellidoCliente;
-        this.servicio = Number(servicio);
+        this.servicio = servicio;
         this.horario = horario;
+        this.horarioFin = horarioFin;
         this.dia = dia;
     }
 }
@@ -86,9 +87,8 @@ function verHorariosDisponibles() {
                     if (turnosF[j] !== undefined && turnosF[j] !== null) {
                         let duracionServicioSeleccionado = servicios[Number(selectServicio.value)].duracion;
 
-                        let duracionTurnoAgendado = servicios[turnosF[j].servicio].duracion;
                         let horarioTurnosAgendado = turnosF[j].horario;
-                        let finTurnoAgendado = horarioTurnosAgendado + duracionTurnoAgendado;
+                        let finTurnoAgendado = turnosF[j].horarioFin;
                         if (i < finTurnoAgendado && i + duracionServicioSeleccionado > horarioTurnosAgendado) {
                             estaDisponible = false;
                         }
@@ -128,8 +128,8 @@ function mostrarTurnos() {
                 tbodyTurnos.innerHTML +=
                     // prettier-ignore
                     `<tr>
-                        <td>${turnosF[i].horario}:00hs a ${turnosF[i].horario + servicios[turnosF[i].servicio].duracion}:00hs</td>
-                        <td>${servicios[turnosF[i].servicio].nombreServicio}</td>
+                        <td>${turnosF[i].horario}:00hs a ${turnosF[i].horarioFin}:00hs</td>
+                        <td>${turnosF[i].servicio}</td>
                         <td>${turnosF[i].nombreCliente}</td>
                         <td>${turnosF[i].apellidoCliente}</td>
                         <td>
@@ -179,14 +179,17 @@ function guardarServiciosLS() {
 
 function agregarTurno() {
     let turno = new Turno();
+    let servicioIndex = Number(document.querySelector("#servicio").value);
 
     turno.nombreCliente = document.querySelector("#nombreCliente").value;
 
     turno.apellidoCliente = document.querySelector("#apellidoCliente").value;
 
-    turno.servicio = Number(document.querySelector("#servicio").value);
+    turno.servicio = servicios[servicioIndex].nombreServicio;
 
     turno.horario = Number(document.querySelector("#horario").value);
+
+    turno.horarioFin = turno.horario + servicios[servicioIndex].duracion;
 
     turno.dia = document.querySelector("#fechaTurno").value;
 
@@ -387,3 +390,7 @@ function start() {
 }
 
 start();
+
+// TAREAS PENDIENTES:
+
+// Se rompe cuando borras servicios porque los turnos guardados se relacionan directamente con los servicios
